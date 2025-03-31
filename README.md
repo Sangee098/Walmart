@@ -56,11 +56,57 @@ This project is an end-to-end data analysis solution designed to extract critica
 ### 9. SQL Analysis: Complex Queries and Business Problem Solving
    - **Business Problem-Solving**: Write and execute complex SQL queries to answer critical business questions, such as:
      - Revenue trends across branches and categories.
+     
      - Identifying best-selling product categories.
+     ```sql
+     SELECT * FROM (SELECT branch,category, AVG(rating) AS avg_rating,RANK() OVER(PARTITION BY branch ORDER BY AVG(rating) DESC) FROM walmart
+     GROUP BY 1,2) WHERE rank =1;
+     ```
      - Sales performance by time, city, and payment method.
+     ```sql
+
+     SELECT * FROM (SELECT branch,TO_CHAR(TO_DATE(date,'dd/mm/yy'),'day'),COUNT(*) AS transations,RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) AS rank 
+     FROM walmart
+     GROUP BY branch,2
+     ORDER BY 1) WHERE rank=1;
+
+     SELECT city,category,AVG(rating) AS Average_rating,MIN(rating) AS Min_rating,MAX(rating) AS Max_rating FROM walmart
+     GROUP BY city,category
+     ORDER BY city;
+
+     SELECT * FROM (SELECT branch,TO_CHAR(TO_DATE(date,'dd/mm/yy'),'day'),COUNT(*) AS transations,RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) AS rank 
+     FROM walmart
+     GROUP BY branch,2
+     ORDER BY 1) WHERE rank=1;
+     ```
      - Analyzing peak sales periods and customer buying patterns.
+     ```sql
+     SELECT * FROM (SELECT branch,payment_method,COUNT(*) AS transition,RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) AS rank FROM walmart
+     GROUP BY branch,payment_method
+     ORDER BY branch) WHERE rank=1;
+
+
+     SELECT CASE 
+     WHEN EXTRACT (HOUR FROM (time::time))<12 THEN 'Morning'
+     WHEN EXTRACT (HOUR FROM (time::time)) BETWEEN 12 AND 17 THEN 'Afternoon'
+     ELSE 'Evening' 
+     END AS Day_time,COUNT(*) AS invoice FROM walmart
+     GROUP BY Day_time
+     ORDER BY invoice;
+
+     ```
      - Profit margin analysis by branch and category.
-   - **Documentation**: Keep clear notes of each query's objective, approach, and results.
+      ```sql
+     WITH Sorted_data AS 
+    (SELECT branch,
+     SUM(CASE WHEN EXTRACT(YEAR FROM TO_DATE(date,'dd/mm/yy')) = 2023 THEN quantity*unit_price END) AS Revenue_2023, 
+     SUM(CASE WHEN EXTRACT(YEAR FROM TO_DATE(date,'DD/MM/YY')) = 2022 THEN quantity*unit_price END) AS Revenue_2022
+     FROM walmart
+     GROUP BY branch
+     ORDER BY branch)
+     SELECT *,(Revenue_2022-Revenue_2023)/Revenue_2022*100 AS revenue_Difference FROM Sorted_data
+     ORDER BY revenue_Difference DESC
+     LIMIT 5;
 
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
