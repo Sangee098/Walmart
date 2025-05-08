@@ -1,11 +1,11 @@
-# Walmart Data Analysis: End-to-End SQL + Python Project P-9
+# Walmart Data Analysis: End-to-End SQL + Python Project 
 
 ## Project Overview
 
 ![Project Pipeline](https://github.com/najirh/Walmart_SQL_Python/blob/main/walmart_project-piplelines.png)
 
 
-This project is an end-to-end data analysis solution designed to extract critical business insights from Walmart sales data. We utilize Python for data processing and analysis, SQL for advanced querying, and structured problem-solving techniques to solve key business questions. 
+This project is an end-to-end data analysis solution designed to extract critical business insights from Walmart sales data. I utilize Python for data processing and analysis, SQL for advanced querying, and structured problem-solving techniques to solve key business questions. 
 
 ---
 
@@ -40,8 +40,8 @@ This project is an end-to-end data analysis solution designed to extract critica
    - **Remove Duplicates**: Identified and removed duplicate entries to avoid skewed results.
    - **Handle Missing Values**: Dropped rows or columns with missing values if they are insignificant; filled values where essential.
    - **Fix Data Types**: Have ensured all columns have consistent data types (e.g., dates as `datetime`, prices as `float`).
-   - **Currency Formatting**: UseD `.replace()` to handle and format currency values for analysis.
-   - **Validation**: Have checked  for any remaining inconsistencies and verified the cleaned data.
+   - **Currency Formatting**: Used `.replace()` to handle and format currency values for analysis.
+   - **Validation**: Have checked for any remaining inconsistencies and verified the cleaned data.
 
 ### 7. Feature Engineering
    - **Create New Columns**: Calculate the `Total Amount` for each transaction by multiplying `unit_price` by `quantity` and adding this as a new column.
@@ -107,15 +107,6 @@ This project is an end-to-end data analysis solution designed to extract critica
      ORDER BY revenue_Difference DESC
      LIMIT 5;
 
-### 10. Project Publishing and Documentation
-   - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
-   - **Project Publishing**: Publish the completed project on GitHub or any other version control platform, including:
-     - The `README.md` file (this document).
-     - Jupyter Notebooks (if applicable).
-     - SQL query scripts.
-     - Data files (if possible) or steps to access them.
-
----
 
 ## Requirements
 
